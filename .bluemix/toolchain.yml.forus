@@ -1,0 +1,53 @@
+version: '2'
+template:
+  name: 'Developer Insights and Team Dynamics with GitHub and JIRA'
+  description: |-
+    With this template, you can create a toolchain to explore your project’s development risk and employ social coding analysis to understand interaction patterns between developers.  You can analyze GitHub source code in conjunction with GitHub issues, JIRA issues, or both.
+
+    Developer Insights provides a comprehensive way to explore your project’s development risk. You can identify files with high error proneness and get a compliance view of the project against DevOps practices.  Team Dynamics employs social coding analysis to identify the level of interaction between team members so that the team can fix unproductive practices.
+
+    After you create the toolchain, DevOps Insights starts to mine the GitHub repo and associated issues. The initial mining process can take minutes to hours depending on the size of the repo and the number of issues.  After data mining and analysis is complete, you can access the developer and team insights for your project from DevOps Insights in the toolchain.
+
+    If a notification tool like Slack is configured in your toolchain, data mining and analysis completion notifications will be forwarded to the notification tool. 
+
+    To get started, click **Create**.
+  required:
+    - github-repo
+    - insights
+  info:
+    git url: >-
+      [https://github.com/open-toolchain/devteaminsights-toolchain.git](https://github.com/open-toolchain/devteaminsights-toolchain.git)
+    git branch: >-
+      [master](https://github.com/open-toolchain/devteaminsights-toolchain/tree/master)
+toolchain:
+  name: 'devteaminsights-toolchain-{{timestamp}}'
+  template:
+    getting_started: |-
+      **Your toolchain is ready!**
+      
+      **Quick start:** View the dashboards in DevOps Insights to see your results.
+      
+      For step-by-step instructions, see the [tutorial](https://www.ibm.com/devops/method/category/tools) for this toolchain.    
+services:
+  insights:
+    service_id: draservicebroker
+    #$ref: insights.yml
+    parameters:
+      type: 'advanced'
+      is_developer_insights_enabled: true
+  github-repo:
+    service_id: githubpublic
+    parameters:
+      repo_name: ''
+      repo_url: ''
+      type: link
+      has_issues: true
+  jira:
+    service_id: jira
+    parameters:
+      type: existing
+      project_key: ''
+      api_url: ''
+  messaging:
+    service_id: slack
+form: {}
