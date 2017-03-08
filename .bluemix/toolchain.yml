@@ -31,6 +31,7 @@ toolchain:
 services:
   insights:
     service_id: draservicebroker
+    longDescription: "DevOps Insights uses analytics to advise on the likelihood of deployment success and development risk. By default Deployment Risk is available, if you need Developer and Team insights additionally select Advanced and ensure the Developer Insights checkbox is turned on before you create the toolchain"
     #$ref: insights.yml
     parameters:
       type: 'advanced'
